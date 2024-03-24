@@ -1,0 +1,48 @@
+import random
+
+countries = ["China", "France", "Japan", "Korea", "Canada","Thailand"]
+
+secret_country = random.choice(countries)
+
+def display_word(secret_word, guessed_letters):
+    display = ""
+    for letter in secret_word:
+        if letter.upper() in guessed_letters:
+            display += letter + " "
+        else:
+            display += "_ "
+    return display.strip()
+
+chances = len(secret_country) + 2
+
+def guess_letter(secret_word, guessed_letters):
+    guess = input("Guess a letter: ").strip().upper()
+    if guess in guessed_letters:
+        print("You have already guessed that letter!")
+    elif guess in secret_word.upper():
+        print("You guessed correctly!")
+        guessed_letters.append(guess)
+    else:
+        print("Sorry, that letter is not in the word.")
+        guessed_letters.append(guess)
+
+def check_win(secret_word, guessed_letters):
+    for letter in secret_word.upper():
+        if letter not in guessed_letters:
+            return False
+    return True
+
+guessed_letters = []
+print("Welcome to the Country Hangman Game!")
+print("You have {} chances to guess the country name.".format(chances))
+while chances > 0:
+    print("\n" + display_word(secret_country, guessed_letters))
+    guess_letter(secret_country, guessed_letters)
+    if check_win(secret_country, guessed_letters):
+        print("\nCongratulations, you guessed it! The country is {}.".format(secret_country))
+        break
+    chances -= 1
+    print("You have {} chances left.".format(chances))
+
+if chances == 0:
+    print("\nSorry, you've run out of chances. The country was {}.".format(secret_country))
