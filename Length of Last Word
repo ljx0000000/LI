@@ -1,0 +1,13 @@
+def length_of_last_word(s: str) -> int:
+    s = s.strip()
+    
+    words = s.split()
+    
+    last_word = words[-1]
+
+    return len(last_word)
+
+if __name__ == "__main__":
+    user_input = input("Please enter a string of words：")
+    result = length_of_last_word(user_input)
+    print(f"The length of the last word is: {result}")
